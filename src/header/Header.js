@@ -5,7 +5,7 @@ import "./Header.css";
 
 const Header = () => (
   <header>
-    <h1>Sweet Pumpkins</h1>
+    <h1>Sweet Pumpkins - made by Frank Semakula</h1>
   </header>
 )
 
