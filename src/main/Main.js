@@ -41,6 +41,15 @@ class Main extends React.Component {
         this.fetchMovies(this.state.moviesUrl);
       }
 
+      // this 'reacts' to changes in the state. Make sure the changes in state is fluid and do not 'hang'
+      componentWillUpdate(nextProps, nextState) {
+        if (this.state.moviesUrl !== nextState.moviesUrl) {
+          this.fetchMovies(nextState.moviesUrl);
+        }
+        if (this.state.page !== nextState.page) {
+          this.generateUrl();
+        }
+      }
 
     setGenres = genres => {
         this.setState({genres});
@@ -109,10 +118,28 @@ class Main extends React.Component {
         this.setState({ moviesUrl });
     }
 
-
     onSearchButtonClick = () => {
+        // Resets this current page on search. Important for UI
+        this.setState({page: 1});
         this.generateUrl();
       }
+
+      onPageIncrease = () => {
+        const { page, total_pages } = this.state
+        const nextPage = page + 1;
+        if (nextPage <= total_pages) {
+          this.setState({ page: nextPage })
+        }
+      }
+      
+      onPageDecrease = () => {
+        const nextPage = this.state.page - 1;
+        if ( nextPage > 0 ) {
+          this.setState({ page: nextPage })
+        }
+      }
+
+
 
     render() {
         return (
@@ -125,7 +152,12 @@ class Main extends React.Component {
                     {...this.state}
                     // Spread operator. All properties will be accessible in the Navigation component via props
                 />
-                <Movies movies={this.state.movies}/>
+                <Movies
+                    movies={this.state.movies}
+                    page={this.state.page}  
+                    onPageIncrease={this.onPageIncrease}
+                    onPageDecrease={this.onPageDecrease}
+                  />
             </section>
         )
     }
