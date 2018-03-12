@@ -1,3 +1,5 @@
+Made with the elaborate tutorial at [CodeCamps](https://sweetpumpkins.codecamps.com/tutorial)
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
