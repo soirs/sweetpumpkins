@@ -8,12 +8,10 @@ import Button from './Button';
 
 class Navigation extends React.Component {
   componentDidMount() {
-    const genresURL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`
-    fetch(genresURL)
+    fetch(this.props.url)
       .then(response => response.json())
-      // create a new empty genres array. This happens in the state in the Main component.
-      .then(data => this.props.setGenres( data.genres ))
-      .catch(error => console.log(error))
+      .then(data => this.props.setGenres(data.genres))
+      .catch(error => console.log(error));
   }
 
   render() {

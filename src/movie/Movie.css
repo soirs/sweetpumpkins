@@ -3,6 +3,7 @@
 .movie-page {
     display: flex;
     flex-direction: column;
+    font-family: sans-serif;
   }
   
   .movie-page h5 {

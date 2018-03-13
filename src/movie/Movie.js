@@ -31,7 +31,7 @@ class Movie extends React.Component {
     } = this.state.movie;
 
     const releaseYear = release_date ? release_date.substring(0, 4) : null;
-    const imgUrl = `http://image.tmdb.org/t/p/w1280/${backdrop_path}`;
+    const imgUrl = backdrop_path ? `http://image.tmdb.org/t/p/w1280/${backdrop_path}` : "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
     const backgroundStyle = {
       backgroundImage: `url(${imgUrl})`
     };
@@ -41,7 +41,7 @@ class Movie extends React.Component {
         this.state.isLoading // Ternary operator
         ? <LoadingMovie />
         : <div className="movie-page">
-            <div className="movie-image" style={backgroundStyle} />
+            <div className="movie-image" style={backgroundStyle} alt="No image yet"/>
             <div className="movie-details">
               <h1>
                 {title}

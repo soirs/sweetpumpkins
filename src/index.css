@@ -1,6 +1,12 @@
+@import url("https://use.typekit.net/qcn8ytc.css");
+
 * {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
   box-sizing: border-box;
+  font-family: sans-serif;
 }
+
+/* a {
+  color: #555;
+} */

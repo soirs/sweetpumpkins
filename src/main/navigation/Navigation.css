@@ -4,4 +4,5 @@
     flex-basis: 20%;
     min-width: 300px;
     padding: 20px;
+    box-shadow: 15px 0px 10px -15px #111; 
 }

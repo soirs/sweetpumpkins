@@ -6,6 +6,7 @@ import Header from "./header/Header";
 import Main from "./main/Main";
 import Movie from "./movie/Movie";
 import NotFound from "./NotFound";
+import Footer from "./footer/Footer";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/movies/:movieId" component={Movie} />
           <Route component={NotFound} />
         </Switch>
+        <Footer />
       </div>
     </BrowserRouter>
   );

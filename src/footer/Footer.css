@@ -1,0 +1,14 @@
+/* Footer.css */
+
+.footer {
+    height: 50px;
+    margin-top: 20px;
+}
+.footer a {
+    text-align: center;
+    font-family: "europa", "Avenir", Helvetica, Arial, sans-serif;    
+}
+
+.footer a:first-child {
+    color: #e27a3f;    
+}

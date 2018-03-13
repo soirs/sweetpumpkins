@@ -1,7 +1,7 @@
 {
   "name": "sweet-pumpkins",
   "version": "0.1.0",
-  "homepage": "http://soirs.github.io/sweetpumpkins",
+  "homepage": "http://soirs.github.io/",
   "private": true,
   "dependencies": {
     "react": "^16.2.0",

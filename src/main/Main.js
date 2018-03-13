@@ -10,7 +10,7 @@ class Main extends React.Component {
         movies: [],
         total_pages: 1,        
         page: 1,
-        url: `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`,
+        url: `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`,
         moviesUrl: `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`,
         genre: "Comedy",
         genres: [],
@@ -35,39 +35,80 @@ class Main extends React.Component {
           step: 15,
           value: { min: 60, max: 120 }
         }
-    };
+      }
 
-    componentDidMount() {
-        this.fetchMovies(this.state.moviesUrl);
+      componentDidMount(){
+        const savedState = this.getStateFromLocalStorage();
+        if ( !savedState || (savedState && !savedState.movies.length)) {
+          this.fetchMovies(this.state.moviesUrl);
+        } else {
+          this.setState({ ...savedState });
+          this.generateUrl(savedState);
+        }
       }
 
       // this 'reacts' to changes in the state. Make sure the changes in state is fluid and do not 'hang'
       componentWillUpdate(nextProps, nextState) {
+        this.saveStateToLocalStorage();
         if (this.state.moviesUrl !== nextState.moviesUrl) {
           this.fetchMovies(nextState.moviesUrl);
         }
         if (this.state.page !== nextState.page) {
-          this.generateUrl();
+          this.generateUrl(nextState);
         }
       }
 
-    setGenres = genres => {
-        this.setState({genres});
-    }
-    
     // updates the value of the genre. simply sets a new value/genre
     onGenreChange = event => {
-        this.setState({ genre: event.target.value });
+      this.setState({ genre: event.target.value });
+    }
+  
+    setGenres = genres => {
+      this.setState({genres});
     }
 
     onChange = data => {
-    this.setState({
+      this.setState({
         [data.type]: {
         ...this.state[data.type], // previous value of this.state.year. SPREAD OPERATOR ES6
         value: data.value         // overwrite the value property
         }
-    });
+      });
     };
+
+    generateUrl = params => {
+      const {genres, year, rating, runtime, page } = params;
+      const selectedGenre = genres.find( genre => genre.name === params.genre);
+      const genreId = selectedGenre.id;
+  
+      const moviesUrl = `https://api.themoviedb.org/3/discover/movie?` +
+        `api_key=${process.env.REACT_APP_TMDB_API_KEY}&` +
+        `language=en-US&sort_by=popularity.desc&` +
+        `with_genres=${genreId}&` +
+        `primary_release_date.gte=${year.value.min}-01-01&` +
+        `primary_release_date.lte=${year.value.max}-12-31&` +
+        `vote_average.gte=${rating.value.min}&` +
+        `vote_average.lte=${rating.value.max}&` +
+        `with_runtime.gte=${runtime.value.min}&` +
+        `with_runtime.lte=${runtime.value.max}&` +
+        `page=${page}`;
+  
+      this.setState({ moviesUrl });
+    }
+  
+    onSearchButtonClick = () => {
+      this.setState({page: 1});
+      this.generateUrl(this.state);
+    }
+  
+    saveStateToLocalStorage = params => {
+      localStorage.setItem("sweetpumpkins.params", JSON.stringify(this.state));
+    }
+  
+    getStateFromLocalStorage = () => {
+      return JSON.parse(localStorage.getItem("sweetpumpkins.params"));
+    }
+  
 
     fetchMovies = (url) => {
         // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
@@ -98,32 +139,6 @@ class Main extends React.Component {
         this.setState({ movies, total_pages: data.total_pages });
       };
 
-    generateUrl = () => {
-        const {genres, year, rating, runtime, page } = this.state;
-        const selectedGenre = genres.find( genre => genre.name === this.state.genre);
-        const genreId = selectedGenre.id;
-    
-        const moviesUrl = `https://api.themoviedb.org/3/discover/movie?` +
-          `api_key=${process.env.REACT_APP_TMDB_API_KEY}&` +
-          `language=en-US&sort_by=popularity.desc&` +
-          `with_genres=${genreId}&` +
-          `primary_release_date.gte=${year.value.min}-01-01&` +
-          `primary_release_date.lte=${year.value.max}-12-31&` +
-          `vote_average.gte=${rating.value.min}&` +
-          `vote_average.lte=${rating.value.max}&` +
-          `with_runtime.gte=${runtime.value.min}&` +
-          `with_runtime.lte=${runtime.value.max}&` +
-          `page=1${page}`;
-    
-        this.setState({ moviesUrl });
-    }
-
-    onSearchButtonClick = () => {
-        // Resets this current page on search. Important for UI
-        this.setState({page: 1});
-        this.generateUrl();
-      }
-
       onPageIncrease = () => {
         const { page, total_pages } = this.state
         const nextPage = page + 1;
@@ -138,8 +153,6 @@ class Main extends React.Component {
           this.setState({ page: nextPage })
         }
       }
-
-
 
     render() {
         return (
