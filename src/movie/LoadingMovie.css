@@ -1,0 +1,12 @@
+/* LoadingMovie.css */
+
+.loading {
+    width: 100vw;
+    height: 80vh;
+    min-height: 200px;
+    text-align: center;
+}
+
+.loading h2 {
+    line-height: 60vh;
+}

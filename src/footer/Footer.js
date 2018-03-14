@@ -6,12 +6,12 @@ import { Link } from "react-router-dom";
 
 const Footer = () => (
   <footer className="footer">
-    <Link to="https://sweetpumpkins.codecamps.com/">
+    <a href="https://sweetpumpkins.codecamps.com/">
       <h3>Based on CodeCamps.com SweetPumpkins tutorial</h3>
-    </Link>
-    <Link to="https://www.themoviedb.org/documentation/api">
+    </a>
+    <a href="https://www.themoviedb.org/documentation/api">
       <h3>Using themoviedb.org API</h3>
-    </Link>
+    </a>
   </footer>
 )
 

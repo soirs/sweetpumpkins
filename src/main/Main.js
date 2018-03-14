@@ -12,7 +12,7 @@ class Main extends React.Component {
         page: 1,
         url: `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`,
         moviesUrl: `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`,
-        genre: "Comedy",
+        genre: "Thriller",
         genres: [],
         year: {
           label: "year",
@@ -132,7 +132,7 @@ class Main extends React.Component {
             poster_path,
             title,
             vote_average,
-            release_date
+            release_date,
           } = result;
           return { vote_count, id, genre_ids, poster_path, title, vote_average, release_date };
         });
@@ -154,15 +154,15 @@ class Main extends React.Component {
         }
       }
 
-    render() {
+      render() {
         return (
-            <section className="main">
-                <Navigation
-                    onChange={this.onChange}
-                    onGenreChange={this.onGenreChange}
-                    setGenres={this.setGenres}
-                    onSearchButtonClick={this.onSearchButtonClick}
-                    {...this.state}
+          <section className="main">
+            <Navigation 
+              onChange={this.onChange} 
+              onGenreChange={this.onGenreChange}
+              setGenres={this.setGenres} 
+              onSearchButtonClick={this.onSearchButtonClick}
+              {...this.state}
                     // Spread operator. All properties will be accessible in the Navigation component via props
                 />
                 <Movies
