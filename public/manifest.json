@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "moviedb",
+  "name": "MovieDB based on CodeCamps tutorial and themoviedb",
   "icons": [
     {
       "src": "favicon.ico",

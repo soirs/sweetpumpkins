@@ -11,6 +11,7 @@ const Selection = ({genre, genres, onGenreChange }) => (
       { genres.map( genre => (
         <option value={genre.name} key={genre.id}>{genre.name}</option>
       ))}
+      
     </select>
   </div>
 );
