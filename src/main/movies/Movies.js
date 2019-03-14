@@ -1,9 +1,9 @@
 // Movies.js
 
 import React from "react";
-import "./Movies.css";
-import MovieListItem from "./MovieListItem";
 import Button from "../navigation/Button";
+import MovieListItem from "./MovieListItem";
+import "./Movies.css";
 
 const Movies = ({
   movies,
