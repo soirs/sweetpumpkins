@@ -1,6 +1,6 @@
 /* Main.css */
-
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
 .main {
     display:flex;
-    font-family: sans-serif;
+    font-family: 'Raleway',sans-serif;
 }
